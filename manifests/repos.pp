@@ -14,8 +14,19 @@ define foreman::repos(
       }
     }
     'Debian': {
-      foreman::repos::apt {$name:
-        repo => $repo,
+      case $facts['os']['lsb']['distcodename'] {
+        'xenial': {
+          foreman::repos::apt {$name:
+            $repo     => $repo,
+            $key      => '5B7C3E5A735BCB4D615829DC0BDDA991FD7AAC8A',
+            $location => 'https://archivedeb.theforeman.org/',
+          }
+        }
+        default: {
+          foreman::repos::apt {$name:
+            repo => $repo,
+          }
+        }
       }
     }
     'Linux': {
