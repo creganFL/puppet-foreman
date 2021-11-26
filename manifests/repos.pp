@@ -15,7 +15,7 @@ define foreman::repos(
     }
     'Debian': {
       # If OS is xenial, or OS is bionic & on the 1.x Foreman branch, use the archivedeb repo
-      if $facts['os']['lsb']['distcodename'] == 'xenial' or ($facts['os']['lsb']['distcodename'] and 'bionic' && (versioncmp($repo, 2.0) == -1)) {
+      if $facts['os']['lsb']['distcodename'] == 'xenial' or ($facts['os']['lsb']['distcodename'] == 'bionic' and (versioncmp($repo, 2.0) == -1)) {
         foreman::repos::apt {$name:
           repo     => $repo,
           key      => '5B7C3E5A735BCB4D615829DC0BDDA991FD7AAC8A',
